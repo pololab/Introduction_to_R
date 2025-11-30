@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>EMBL PHD Course 2025 Introduction to R</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Introduction_to_R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="Introduction_to_R.html">Tutorial</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">EMBL PHD Course 2025 Introduction to R</h1>
+<h4 class="author">Nora Liu</h4>
+<address class="author_afil">
+SAiGENCI, University of Adelaide, Adelaide, SA 5000, AustraliaAdelaide
+Centre of Epigenetics, School of Biomedicine, University of Adelaide,
+Adelaide, SA 5000,
+Australia<br><a class="author_email" href="mailto:#"><a
+href="mailto:nora.liu@adelaide.edu.au"
+class="email">nora.liu@adelaide.edu.au</a></a>
+</address>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2025-11-30
+</p>
+<p>
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>Introduction_to_R/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.1). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20251128code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20251128)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20251128code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20251128)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompololabIntroductiontoRtree51d13a0e9b59cbdda2c0d66318ea3abdeea806ddtargetblank51d13a0a">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/pololab/Introduction_to_R/tree/51d13a0e9b59cbdda2c0d66318ea3abdeea806dd" target="_blank">51d13a0</a>
+</a>
+</p>
+</div>
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcompololabIntroductiontoRtree51d13a0e9b59cbdda2c0d66318ea3abdeea806ddtargetblank51d13a0a"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version
+<a href="https://github.com/pololab/Introduction_to_R/tree/51d13a0e9b59cbdda2c0d66318ea3abdeea806dd" target="_blank">51d13a0</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  .Rprofile
+    Untracked:  .gitattributes
+    Untracked:  .gitignore
+    Untracked:  Introduction_to_R.Rproj
+    Untracked:  _workflowr.yml
+    Untracked:  analysis/
+    Untracked:  code/
+    Untracked:  data/
+    Untracked:  output/
+
+Unstaged changes:
+    Modified:   README.md
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with
+<code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<pre class="r"><code># Install all packages needed for this workshop
+
+# CRAN packages
+install.packages(c(
+  &quot;tidyverse&quot;,
+  &quot;magrittr&quot;,
+  &quot;readxl&quot;,
+  &quot;here&quot;,
+  &quot;uwot&quot;,
+  &quot;ggpubr&quot;,
+  &quot;ggpmisc&quot;,
+  &quot;viridis&quot;,
+  &quot;class&quot;
+))
+
+# Bioconductor packages
+if (!requireNamespace(&quot;BiocManager&quot;, quietly = TRUE))
+    install.packages(&quot;BiocManager&quot;)
+
+BiocManager::install(&quot;ComplexHeatmap&quot;)</code></pre>
+<div id="welcome" class="section level2">
+<h2>Welcome</h2>
+<p>Welcome to the 2025 EMBL Australia PhD Course: Introduction to R.</p>
+<p>In this two hour session, we will cover the essentials of working
+with biological data in R, including:</p>
+<ul>
+<li><p>Importing and manipulating data</p></li>
+<li><p>performing simple dimension reduction</p></li>
+<li><p>Visualising gene expression using plots such as boxplots and
+heatmaps and carrying out basic statistical tests</p></li>
+<li><p>Building simple machien learning classifier</p></li>
+</ul>
+<p>This workshop is designed for participants with little or no coding
+or bioinformatics experience. We will work through the code together,
+and I encourage you to <strong>type out all of the code yourself if
+possible</strong>. Along the way, there will be a few short challenge
+exercises for you to try.</p>
+</div>
+<div id="getting-familar-with-rstudio" class="section level2">
+<h2>Getting familar with Rstudio</h2>
+<p>In this workshop we will work within <a
+href="https://rmarkdown.rstudio.com/articles_intro.html">RMarkdown</a>,
+which lets us combine code, output and narrative text in a single,
+reproducible document. This makes it easy to keep your analysis,
+explanations and figures together in one place.</p>
+<p>Our project is organised using the <a
+href="https://workflowr.github.io/workflowr/">workflowR</a> structure.
+workflowR provides a simple but powerful framework for reproducible
+research, with a consistent folder layout, version tracking, and
+automatic website generation. As we work through the exercises, you will
+see how scripts, data and results fit neatly into this structure,
+helping you develop good habits for organising and sharing your
+analyses.</p>
+<p><em>Try inserting a code chunk and calculate the square root of
+123</em></p>
+</div>
+<div id="getting-todays-data" class="section level2">
+<h2>Getting today’s data</h2>
+<p>For today’s workshop we will use the prostate atlas dataset from <a
+href="https://www.nature.com/articles/s41467-021-26840-5#Abs1">Bolis et
+al. (2021)</a>. In this study, the authors assembled and integrated bulk
+RNA-seq profiles from clinical prostate samples spanning normal tissue,
+primary prostate cancer, metastatic castration-resistant prostate cancer
+(CRPC), and neuroendocrine prostate cancers (NEPC).</p>
+<p>You can access the dataset from the corresponding Zenodo repository:
+<a href="https://zenodo.org/records/5546618"
+class="uri">https://zenodo.org/records/5546618</a>. Please download the
+<code>pcatlas_dataset.zip</code> folder to the data folder of this
+project. The downloaded folder should contains 2 files. We will read
+them into R using the following code:</p>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre class="r"><code>vst_count &lt;- read_table(here::here(&quot;data/pcatlas_dataset/pcatlas_dataset_vst_normalized.txt&quot;)) 
+pcatlas_meta &lt;- readxl::read_excel(here::here(&quot;data/pcatlas_dataset/pcatlas_dataset_annotations.xlsx&quot;)) %&gt;%
+  mutate(`Sample Type` = factor(`Sample Type`, levels = c(&quot;NORMAL&quot;,&quot;PRIMARY&quot;,&quot;CRPC&quot;,&quot;NEPC&quot; )))</code></pre>
+<p><em>But there’s a problem with loading the data like that. Could you
+tell what it is?</em></p>
+<p><br></p>
+<p>To resolve the problem, we are going to skip the first row of the
+count matrix and manually define column names.</p>
+<pre class="r"><code>library(magrittr)
+vst_count &lt;- read_table(here::here(&quot;data/pcatlas_dataset/pcatlas_dataset_vst_normalized.txt&quot;), skip = 1)  %&gt;%
+  set_colnames(c(&quot;gene_id&quot;,pcatlas_meta$Entry)) %&gt;%
+  column_to_rownames(&quot;gene_id&quot;)</code></pre>
+</div>
+<div id="dimension-reduction" class="section level2">
+<h2>Dimension reduction</h2>
+<div id="pca" class="section level3">
+<h3>PCA</h3>
+<p>In Figure 1 of the paper, the authors present a principal component
+analysis (PCA) plot coloured by disease stage. We will now try to
+reproduce this figure.</p>
+<p><em>(PCA is a dimensionality-reduction method that identifies new
+axes, called principal components, which capture the greatest variation
+in the data by finding the directions along which the samples differ the
+most.)</em></p>
+<p><br></p>
+<div class="figure" style="text-align: center">
+<img src="assets/PCAtlas_Fig1.png" alt="*Figure 1 from Bolis et al.*" width="50%" />
+<p class="caption">
+<em>Figure 1 from Bolis et al.</em>
+</p>
+</div>
+<p><br></p>
+<p>According to the Methods, the PCA was performed using the 2000 most
+variable genes. To follow the same approach, we will begin by extracting
+the top 200 genes with the highest variance.</p>
+<pre class="r"><code>top2000 &lt;- apply(vst_count, 1, var) %&gt;%
+  sort(decreasing = T) %&gt;%
+  .[1:2000] %&gt;%
+  names()</code></pre>
+<p>In R, PCA can be achieved using <code>prcomp</code> function.</p>
+<pre class="r"><code>pca &lt;- vst_count %&gt;%
+  .[rownames(.) %in% top2000, ] %&gt;%
+  t() %&gt;%
+  prcomp() 
+pca_df &lt;- pca$x %&gt;%
+    as.data.frame() %&gt;%
+    rownames_to_column(&quot;Entry&quot;) %&gt;%
+    dplyr::select(Entry, PC1, PC2) %&gt;%
+    left_join(pcatlas_meta)
+pca_import &lt;- scales::percent(summary(pca)$importance[&quot;Proportion of Variance&quot;, ], 0.1) %&gt;%
+    paste(names(.), ., sep = &quot;: &quot;)</code></pre>
+<p>The resulting <code>pca_df</code> is a <code>data.frame</code> that
+we can then visualise using <code>ggplot2</code> package.</p>
+<pre class="r"><code>type_cols &lt;- c(&quot;darkred&quot;, &quot;black&quot;, &quot;royalblue&quot;, &quot;forestgreen&quot;) %&gt;%
+  set_names(c(&quot;PRIMARY&quot;, &quot;NEPC&quot;,&quot;CRPC&quot;, &quot;NORMAL&quot;))
+pca_df %&gt;%
+  ggplot(aes(-PC1, PC2, color = `Sample Type`)) +
+  geom_point(size = 2.5, alpha = 0.8) +
+  scale_color_manual(values = type_cols) +
+  labs(
+    x = pca_import[1], y = pca_import[2]
+  ) +
+  theme_minimal()</code></pre>
+<div class="figure" style="text-align: center">
+<img src="figure/Introduction_to_R.Rmd/unnamed-chunk-9-1.png" alt="*Post-normalisation &amp; post-integration PCA plot.*" width="576" />
+<p class="caption">
+<em>Post-normalisation &amp; post-integration PCA plot.</em>
+</p>
+</div>
+<p><br></p>
+<pre class="r"><code>theme_set(theme_minimal())</code></pre>
+<p><em>Try modifying the plot so that each point’s shape represents the
+sample’s <code>Library Type</code> and add a title to the plot.</em></p>
+</div>
+<div id="umap" class="section level3">
+<h3>UMAP</h3>
+<p>Since this dataset contains 1223 samples, PCA can become visually
+crowded. Another way to explore the same high-dimensional data is to use
+<strong>Uniform Manifold Approximation and Projection (UMAP)</strong>,
+which projects the samples into a two-dimensional space while preserving
+their underlying structure.Unlike PCA, which captures variation through
+linear combinations of the original features, UMAP uses nonlinear
+relationships to better separate samples with similar patterns.</p>
+<p>To compute UMAP, we can use the following code:</p>
+<pre class="r"><code>library(uwot)
+set.seed(123)  # for reproducibility
+umap_res &lt;- vst_count %&gt;%
+  .[rownames(.) %in% top2000, ] %&gt;%
+  t() %&gt;%
+  umap(
+    n_neighbors = 15,
+    min_dist    = 0.3,
+    metric      = &quot;euclidean&quot;
+  )
+umap_df &lt;- umap_res %&gt;%
+  as.data.frame() %&gt;%
+  setNames(c(&quot;UMAP1&quot;, &quot;UMAP2&quot;)) %&gt;%
+  mutate(Entry = colnames(vst_count)) %&gt;%
+  left_join(pcatlas_meta, by = &quot;Entry&quot;)</code></pre>
+<p><em>Now try generating a UMAP plot using the umap data.frame to see
+how the samples cluster using this alternative dimension reduction
+visualisation</em></p>
+<p><em>How can we put the PCA and UMAP plot together
+side-by-side?</em></p>
+</div>
+</div>
+<div id="visualise-gene-expression" class="section level2">
+<h2>Visualise gene expression</h2>
+<p>It’s often useful to visualise the expression of one or two genes as
+a quick sanity check. To do this, we first need to reshape the count
+matrix into a long format and match Ensembl gene id to gene names.</p>
+<p>I previously downloaded the genome annotation information and saved
+it as an RDS file in the <code>data</code> folder. It’s a
+<code>data.frame</code> that we can use to match gene_id to gene
+name.</p>
+<pre class="r"><code>genesGR &lt;- readRDS(here::here(&quot;data/genesGR.rds&quot;))</code></pre>
+<pre class="r"><code>vst_count_geneName &lt;- vst_count
+geneNames &lt;- genesGR %&gt;%
+    as.data.frame() %&gt;%
+    .[match(rownames(vst_count_geneName), .$gene_id),] %&gt;%
+    pull(gene_name) 
+gene2keep &lt;- !duplicated(geneNames)&amp;!is.na(geneNames)&amp;geneNames != &quot;&quot;
+vst_count_geneName &lt;-  vst_count_geneName %&gt;%
+  .[gene2keep, ]
+rownames(vst_count_geneName) &lt;- geneNames[gene2keep]
+vst_count_geneName</code></pre>
+<div id="scatter-plot" class="section level3">
+<h3>Scatter plot</h3>
+<p>Now we can easily visualise the relationship between two genes, for
+example: androgen receptor (AR) and KLK3 (PSA gene).</p>
+<pre class="r"><code>library(ggpmisc)
+vst_count_geneName %&gt;%
+  .[rownames(.) %in% c(&quot;AR&quot;, &quot;KLK3&quot;),] %&gt;%
+  t() %&gt;%
+  as.data.frame() %&gt;%
+  rownames_to_column(&quot;Entry&quot;) %&gt;%
+  left_join(pcatlas_meta) %&gt;%
+  ggplot(
+    aes(KLK3, AR)
+  ) +
+  geom_point() +
+  stat_poly_line() +
+  stat_poly_eq( use_label(c(&quot;eq&quot;, &quot;R2&quot;))) </code></pre>
+<p><img src="figure/Introduction_to_R.Rmd/unnamed-chunk-14-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>After having a count matrix with gene name as rownames, we can also
+use <code>pivot_longer</code> to make it into long format.</p>
+<pre class="r"><code>vst_count_df &lt;- vst_count_geneName %&gt;%
+  rownames_to_column(&quot;gene_name&quot;) %&gt;%
+  pivot_longer(
+    cols = -&quot;gene_name&quot;, 
+    values_to = &quot;VST_count&quot;, 
+    names_to = &quot;Entry&quot;
+  ) %&gt;%
+  left_join(pcatlas_meta)
+vst_count_df</code></pre>
+</div>
+<div id="violinbox-plot" class="section level3">
+<h3>Violin/Box plot</h3>
+<p>The long format allows us to visualise distribution of genes across
+groups easily.</p>
+<pre class="r"><code>vst_count_df %&gt;%
+  dplyr::filter(gene_name == &quot;AR&quot;) %&gt;%
+  ggplot(
+    aes(`Sample Type`, VST_count, fill = `Sample Type`)) + 
+  geom_violin()+
+  #geom_point() +
+  scale_fill_manual(values = type_cols)</code></pre>
+<div class="figure" style="text-align: center">
+<img src="figure/Introduction_to_R.Rmd/unnamed-chunk-16-1.png" alt="*VST count of AR in different sample groups.*" width="480" />
+<p class="caption">
+<em>VST count of AR in different sample groups.</em>
+</p>
+</div>
+<p><em>Could you convert the violin plot to a boxplot?</em></p>
+<p><br></p>
+<div id="adding-significance-to-the-plot" class="section level4">
+<h4>Adding significance to the plot</h4>
+<p>Comparing gene expression between groups in RNA-seq normally requires
+proper differential expression analysis, which is statistically complex
+and <strong>NOT something that can be done with a simple
+t-test</strong>. However, to demonstrate how to add significance to a
+plot and run basic statistical tests in R, we will use a
+<code>ggpubr</code> function to perform a one-way ANOVA. This will let
+us test whether the mean AR expression differs across the different
+sample-type groups.</p>
+<pre class="r"><code>library(ggpubr)
+vst_count_df %&gt;%
+  dplyr::filter(gene_name == &quot;AR&quot;) %&gt;%
+  ggboxplot(x = &quot;Sample Type&quot;, y = &quot;VST_count&quot;,
+          color = &quot;Sample Type&quot;)+
+  stat_compare_means(method = &quot;anova&quot;) +
+  scale_color_manual(values = type_cols)</code></pre>
+<div class="figure" style="text-align: center">
+<img src="figure/Introduction_to_R.Rmd/unnamed-chunk-17-1.png" alt="*VST count of AR in different sample groups with one-way ANOVA p-value.*" width="480" />
+<p class="caption">
+<em>VST count of AR in different sample groups with one-way ANOVA
+p-value.</em>
+</p>
+</div>
+<p>The significant p-value indicates that there’s difference in group
+means but we dont know between which groups. To find out about that, we
+will perform pariwise test.</p>
+<pre class="r"><code>my_comparisons &lt;- list( c(&quot;NORMAL&quot;, &quot;PRIMARY&quot;),  c(&quot;NORMAL&quot;, &quot;CRPC&quot;),  c(&quot;PRIMARY&quot;, &quot;CRPC&quot;),c(&quot;PRIMARY&quot;, &quot;NEPC&quot;))
+vst_count_df %&gt;%
+  dplyr::filter(gene_name == &quot;AR&quot;) %&gt;%
+  ggboxplot(x = &quot;Sample Type&quot;, y = &quot;VST_count&quot;,
+          color = &quot;Sample Type&quot;)+
+  stat_compare_means(comparisons = my_comparisons, method = &quot;t.test&quot;, 
+                     #label = &quot;p.signif&quot;
+                     )+ # Add pairwise comparisons p-value
+  scale_color_manual(values = type_cols)</code></pre>
+<div class="figure" style="text-align: center">
+<img src="figure/Introduction_to_R.Rmd/unnamed-chunk-18-1.png" alt="*VST count of AR in different sample groups with one-way ANOVA p-value.*" width="480" />
+<p class="caption">
+<em>VST count of AR in different sample groups with one-way ANOVA
+p-value.</em>
+</p>
+</div>
+</div>
+<div id="adding-facet" class="section level4">
+<h4>Adding facet</h4>
+<p><code>facet_wrap()</code> in <code>ggplot2</code> splits your data
+into groups and makes a separate small plot for each group, arranging
+all the plots neatly in a grid. Utilising <code>facet_wrap</code> we can
+easily plot the expression of both AR and KLK3 in one plot.</p>
+<pre class="r"><code>vst_count_df %&gt;%
+  dplyr::filter(gene_name %in% c(&quot;AR&quot;, &quot;KLK3&quot;)) %&gt;%
+  ggplot(
+    aes(`Sample Type`, VST_count, fill = `Sample Type`)) + 
+  geom_violin()+
+  #geom_point() +
+  scale_fill_manual(values = type_cols) +
+  facet_wrap(~gene_name)</code></pre>
+<div class="figure" style="text-align: center">
+<img src="figure/Introduction_to_R.Rmd/unnamed-chunk-19-1.png" alt="*VST count of AR and KLK3 in different sample groups.*" width="672" />
+<p class="caption">
+<em>VST count of AR and KLK3 in different sample groups.</em>
+</p>
+</div>
+<p><code>facet_grid()</code> does something similar, but lets you create
+a grid where one variable defines the rows and another defines the
+columns.</p>
+<pre class="r"><code>vst_count_df %&gt;%
+  dplyr::filter(gene_name %in% c(&quot;AR&quot;, &quot;KLK3&quot;)) %&gt;%
+  ggplot(
+    aes(`Sample Type`, VST_count, fill = `Sample Type`)) + 
+  geom_violin()+
+  #geom_point() +
+  scale_fill_manual(values = type_cols) +
+  facet_grid(`Library Type` ~ gene_name)</code></pre>
+<div class="figure" style="text-align: center">
+<img src="figure/Introduction_to_R.Rmd/unnamed-chunk-20-1.png" alt="*VST count of AR and KLK3 in different sample groups and library type.*" width="672" />
+<p class="caption">
+<em>VST count of AR and KLK3 in different sample groups and library
+type.</em>
+</p>
+</div>
+</div>
+</div>
+<div id="heatmap" class="section level3">
+<h3>Heatmap</h3>
+<p>But what if you want to visualise the expression of many genes across
+all samples at once? In that situation, a heatmap is the most effective
+choice. For example, let’s plot the top 10 most variable genes using the
+<a
+href="https://jokergoo.github.io/ComplexHeatmap-reference/book/introduction.html"><code>ComplexHeatmap</code>
+package</a>.</p>
+<pre class="r"><code>top10 &lt;- apply(vst_count_geneName, 1, var) %&gt;%
+  sort(decreasing = T) %&gt;%
+  .[1:10] %&gt;%
+  names()</code></pre>
+<p>Because there are so many samples, I set
+<code>show_column_names = FALSE</code> to hide the sample names. But how
+can we make this heatmap more informative? We can already see patterns
+of expression differences across samples, but it is not yet clear
+whether those differences correspond to meaningful biological
+groups.</p>
+<pre class="r"><code>temp &lt;- vst_count_geneName %&gt;%
+  .[rownames(.) %in% top10,]
+library(grid)
+library(ComplexHeatmap)
+library(viridis)
+hp &lt;- temp %&gt;%
+  Heatmap(
+    col = viridis_pal(option = &quot;B&quot;)(100), 
+    show_column_names = F, 
+    width = unit(6, &quot;cm&quot;), 
+    height = unit(5, &quot;cm&quot;),
+    name = &quot;VST-normalised\nCount&quot;,
+    row_names_gp = gpar(fontsize = 7), 
+  )
+draw(hp)</code></pre>
+<div class="figure" style="text-align: center">
+<img src="figure/Introduction_to_R.Rmd/vst_hp-1.png" alt="*VST-normalised count of the top 10 most variant genes.*" width="576" />
+<p class="caption">
+<em>VST-normalised count of the top 10 most variant genes.</em>
+</p>
+</div>
+<p><code>Complexheatmap</code> allows us to add additional information
+associated with rows or columns as heatmap annotations. In the heatmap
+below, we added the pathological group and gleason score of each sample
+as column annotation.</p>
+<pre class="r"><code>col_anno &lt;- pcatlas_meta %&gt;%
+  mutate(
+    `Gleason Group` = case_when(
+      `Gleason Score` %in% c(&quot;5.0&quot; , &quot;6.0&quot; ) ~ &quot;GS &lt; 7&quot;, 
+      `Gleason Score` == &quot;7.0&quot; ~ &quot;GS = 7&quot;,
+      `Gleason Score` %in% c(&quot;8.0&quot; , &quot;9.0&quot;, &quot;10.0&quot; ) ~ &quot;GS &gt; 7&quot;, 
+      `Gleason Score` == &quot;NA&quot;  ~ NA
+    )
+  ) %&gt;%
+  dplyr::select(Entry, `Sample Type`,`Gleason Group`
+                ) %&gt;%
+  column_to_rownames(&quot;Entry&quot;)
+hp &lt;- temp %&gt;%
+  Heatmap(
+    col = viridis_pal(option = &quot;B&quot;)(100), 
+    show_column_names = F, 
+    width = unit(6, &quot;cm&quot;), 
+    height = unit(5, &quot;cm&quot;),
+    name = &quot;VST-normalised\nCount&quot;,
+    row_names_gp = gpar(fontsize = 7), 
+    top_annotation = HeatmapAnnotation(
+      df = col_anno, which = &quot;column&quot;, 
+      col = list(
+        `Sample Type` = type_cols, 
+        `Gleason Group` = c(&quot;#99600F&quot;,&quot;#CCAA7A&quot;,&quot;#E6D2B8&quot; ) %&gt;%
+          set_names(c(&quot;GS &lt; 7&quot;, &quot;GS = 7&quot;, &quot;GS &gt; 7&quot;))), 
+      annotation_name_gp = gpar(fontsize = 9)
+    )
+  )
+draw(hp)</code></pre>
+<p><img src="figure/Introduction_to_R.Rmd/unnamed-chunk-22-1.png" width="576" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="ml-classifier" class="section level2">
+<h2>ML Classifier</h2>
+<p>For the last part of the workshop, we will build a simple k-nearest
+neighbours (kNN) classifier to predict the Sample Type of each sample
+based on its gene expression profile. We will train the classifier using
+the most variable genes and then evaluate how well it can distinguish
+NORMAL, PRIMARY TUMOUR, CRPC and NEPC samples.</p>
+<p>k-Nearest Neighbours (kNN) is a simple classification method that
+predicts a sample’s label by finding the k most similar samples in the
+training data and assigning the label that appears most often among
+them.</p>
+<p><br></p>
+<div class="figure" style="text-align: center">
+<img src="assets/knn_algorithm.png" alt="*Schematic illustration of how kNN calssification work (adopted from Statiml blog).*" width="50%" />
+<p class="caption">
+<em>Schematic illustration of how kNN calssification work (adopted from
+Statiml blog).</em>
+</p>
+</div>
+<p><br></p>
+<p>To begin with, we will randomly split the data into 70% training and
+30% testing set.</p>
+<pre class="r"><code>set.seed(123)  # for reproducibility
+expr_mat &lt;- vst_count %&gt;%
+  .[rownames(.) %in% top2000, ] %&gt;%
+  t()
+labels &lt;- as.character(pcatlas_meta$`Sample Type`)
+n_samples &lt;- nrow(expr_mat)
+train_idx &lt;- sample(seq_len(n_samples), size = floor(0.7 * n_samples))
+
+x_train &lt;- expr_mat[train_idx, ]
+x_test  &lt;- expr_mat[-train_idx, ]
+
+y_train &lt;- labels[train_idx]
+y_test  &lt;- labels[-train_idx]</code></pre>
+<p>We will train the model using <code>k=5</code> as a starting
+point.</p>
+<pre class="r"><code>library(class)
+# k = 5 is a common simple choice
+knn_pred &lt;- knn(
+  train = x_train,
+  test  = x_test,
+  cl    = y_train,
+  k     = 5
+)</code></pre>
+<p>Next we create a confusion matrix to show how many samples were
+correctly or incorrectly classified in each category.</p>
+<pre class="r"><code># confusion matrix
+cm &lt;- table(
+  Truth     = y_test,
+  Predicted = knn_pred
+)
+cm</code></pre>
+<p>Additionally, we can calculate the accuracy as the number of correct
+predictions divided by the total number of samples.</p>
+<pre class="r"><code># overall accuracy
+accuracy &lt;- sum(diag(cm)) / sum(cm)
+accuracy</code></pre>
+<p>Let’s run KNN across different k values and see how accuracy
+changes.</p>
+<pre class="r"><code>k_values &lt;- seq(1, 25, by = 2)  # 1, 3, 5, ..., 25
+
+knn_results &lt;- map_df(
+  k_values,
+  ~{
+    pred &lt;- knn(
+      train = x_train,
+      test  = x_test,
+      cl    = y_train,
+      k     = .x
+    )
+
+    cm &lt;- table(Truth = y_test, Predicted = pred)
+    acc &lt;- sum(diag(cm)) / sum(cm)
+
+    tibble(
+      k        = .x,
+      accuracy = acc
+    )
+  }
+)
+ggplot(knn_results, aes(x = k, y = accuracy)) +
+  geom_line() +
+  geom_point(size = 2) +
+  scale_x_continuous(breaks = k_values) +
+  labs(
+    x = &quot;Number of neighbours (k)&quot;,
+    y = &quot;Accuracy on test set&quot;,
+    title = &quot;kNN performance across different k values&quot;
+  )</code></pre>
+<p><img src="figure/Introduction_to_R.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Pleas note that in real applications, this simple kNN approach is
+usually not the best method for predicting sample types from RNA-seq
+data, because high-dimensional gene expression requires more robust
+models, careful feature selection, and proper cross-validation to avoid
+overfitting.</p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
