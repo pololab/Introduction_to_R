@@ -1,0 +1,16 @@
+name: "Introduction_to_R"
+output_dir: ../docs
+navbar:
+  title: "Introduction_to_R"
+  left:
+  - text: Home
+    href: index.html
+  - text: Tutorial
+    href: Introduction_to_R.html
+output:
+  workflowr::wflow_html:
+    toc: yes
+    toc_float: yes
+    theme: cosmo
+    highlight: textmate
+    #code_folding: hide

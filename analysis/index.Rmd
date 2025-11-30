@@ -1,4 +1,18 @@
-# Introduction_to_R
+---
+title: "Introduction to R"
+site: workflowr::wflow_site
+output:
+  workflowr::wflow_html:
+    toc: false
+editor_options:
+  chunk_output_type: console
+author:
+  - name: Nora Liu
+    affiliation:
+      - SAiGENCI, University of Adelaide, Adelaide, SA 5000, Australia
+      - Adelaide Centre of Epigenetics, School of Biomedicine, University of Adelaide, Adelaide, SA 5000, Australia
+    email: nora.liu@adelaide.edu.au
+---
 
 Welcome to the 2025 EMBL Australia PhD Course: Introduction to R.
 
